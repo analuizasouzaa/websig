@@ -32,11 +32,11 @@
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
         <script src="js/leaflet-search.js"></script>
-        <script src="data/cinemas_1.js"></script>
+        <script src="data/Cinemasdecalada_1.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[-32.05267086753795,-52.1183376291398],[-32.020983111108016,-52.05867398952691]]);
+        }).fitBounds([[-32.05071862915891,-52.126027216000516],[-32.02838009624131,-52.08522628793099]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -56,7 +56,7 @@
         });
         layer_ESRITopo_0;
         map.addLayer(layer_ESRITopo_0);
-        function pop_cinemas_1(feature, layer) {
+        function pop_Cinemasdecalada_1(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
                         <th scope="row">ID</th>\
@@ -83,49 +83,45 @@
                         <td>' + (feature.properties['FOTO_ANT'] !== null ? '<img src="images/' + String(feature.properties['FOTO_ANT']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">Foto Atual</th>\
+                        <th scope="row">Foto atual</th>\
                         <td>' + (feature.properties['FOTO_ATUAL'] !== null ? '<img src="images/' + String(feature.properties['FOTO_ATUAL']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 1000, maxWidth: 1000});
         }
 
-        function style_cinemas_1_0() {
+        function style_Cinemasdecalada_1_0() {
             return {
-                pane: 'pane_cinemas_1',
-                radius: 4.0,
-                opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
-                dashArray: '',
-                lineCap: 'butt',
-                lineJoin: 'miter',
-                weight: 1,
-                fill: true,
-                fillOpacity: 1,
-                fillColor: 'rgba(255,88,59,1.0)',
+                pane: 'pane_Cinemasdecalada_1',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/Design sem nome.svg',
+            iconSize: [57.0, 57.0]
+        }),
                 interactive: true,
             }
         }
-        map.createPane('pane_cinemas_1');
-        map.getPane('pane_cinemas_1').style.zIndex = 401;
-        map.getPane('pane_cinemas_1').style['mix-blend-mode'] = 'normal';
-        var layer_cinemas_1 = new L.geoJson(json_cinemas_1, {
+        map.createPane('pane_Cinemasdecalada_1');
+        map.getPane('pane_Cinemasdecalada_1').style.zIndex = 401;
+        map.getPane('pane_Cinemasdecalada_1').style['mix-blend-mode'] = 'normal';
+        var layer_Cinemasdecalada_1 = new L.geoJson(json_Cinemasdecalada_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_cinemas_1',
-            layerName: 'layer_cinemas_1',
-            pane: 'pane_cinemas_1',
-            onEachFeature: pop_cinemas_1,
+            dataVar: 'json_Cinemasdecalada_1',
+            layerName: 'layer_Cinemasdecalada_1',
+            pane: 'pane_Cinemasdecalada_1',
+            onEachFeature: pop_Cinemasdecalada_1,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_cinemas_1_0(feature));
+                return L.marker(latlng, style_Cinemasdecalada_1_0(feature));
             },
         });
-        bounds_group.addLayer(layer_cinemas_1);
-        map.addLayer(layer_cinemas_1);
+        bounds_group.addLayer(layer_Cinemasdecalada_1);
+        map.addLayer(layer_Cinemasdecalada_1);
             var title = new L.Control();
             title.onAdd = function (map) {
                 this._div = L.DomUtil.create('div', 'info');
@@ -154,26 +150,28 @@
                 abstract.show = function () {
                     this._div.classList.remove("abstract");
                     this._div.classList.add("abstractUncollapsed");
-                    this._div.innerHTML = 'Esse WebSIG é resultado de um trabalho de conclusão de curso do técnico em Geoprocessamento do Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Sul - Campus Rio Grande, desenvolvido no ano de 2023.<br />O trabalho possui como título "Cinema e Geoprocessamento: construção de um WebSIG dos cinemas de calçada da cidade do Rio Grande" e foi elaborado pela aluna Ana Luíza Souza, com orientação da Prof. Raquel Ferreira e do Prof. Delnir Lemos.';
+                    this._div.innerHTML = 'Esse WebSIG é resultado de um trabalho de conclusão de curso do técnico em Geoprocessamento do Instituto Federal de Educação, Ciência e Tecnologia do Rio Grande do Sul - Campus Rio Grande, desenvolvido no ano de 2023.<br />O trabalho possui como titulo "Cinema e WebSIG: espacialidade e memória dos cinemas de calçada da cidade do Rio Grande" e foi elaborado pela aluna Ana Luíza Souza, com orientação da Prof. Raquel Ferreira e do Prof. Delnir Lemos.';
             };
             abstract.addTo(map);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/Cinemasdecalada_1.png" /> Cinemas de calçada': layer_Cinemasdecalada_1,"ESRI Topo": layer_ESRITopo_0,}).addTo(map);
         setBounds();
         map.addControl(new L.Control.Search({
-            layer: layer_cinemas_1,
+            layer: layer_Cinemasdecalada_1,
             initial: false,
             hideMarkerOnCollapse: true,
             propertyName: 'Nome'}));
         document.getElementsByClassName('search-button')[0].className +=
          ' fa fa-binoculars';
-        resetLabels([layer_cinemas_1]);
+        resetLabels([layer_Cinemasdecalada_1]);
         map.on("zoomend", function(){
-            resetLabels([layer_cinemas_1]);
+            resetLabels([layer_Cinemasdecalada_1]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_cinemas_1]);
+            resetLabels([layer_Cinemasdecalada_1]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_cinemas_1]);
+            resetLabels([layer_Cinemasdecalada_1]);
         });
         </script>
     </body>
